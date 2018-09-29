@@ -5,8 +5,10 @@ let makeNumber = function(input) {
 
 let makeItPrint = function(input) {
   let toPrint = input.join(", ");
-  $('#keepingCount').append(toPrint)
+  $('#keepingCount').html(toPrint)
 }
+
+let error = "Please make sure that the number you're counting to is larger than the number you're counting by."
 
 $(document).ready(function() {
   $('#userInput').submit(function(event) {
@@ -14,9 +16,19 @@ $(document).ready(function() {
     let countTo = makeNumber($('#countTo'));
     let countBy = makeNumber($('#countBy'));
     let trackCount = []
-    for (var index = countBy; index <= countTo; index += countBy) {
-      trackCount.push(index);
+    if (countBy >= countTo) {
+      $('#errorMessage').empty();
+      $('#errorMessage').append(error)
     }
-    makeItPrint(trackCount);
+    else if (countTo <=0 && countBy <=0) {
+      
+    }
+    else {
+      $('#errorMessage').empty();
+      for (var index = countBy; index <= countTo; index += countBy) {
+        trackCount.push(index);
+      }
+      makeItPrint(trackCount);
+    }
   });
 });
